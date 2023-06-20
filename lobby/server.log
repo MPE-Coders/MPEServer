@@ -83,3 +83,14 @@
 2023-06-20 [20:44:15.594] [Server thread/WARNING]: Чтобы включить аутентификацию, установите "xbox-auth" на "true" в server.properties.
 2023-06-20 [20:44:15.875] [Server thread/INFO]: Этот сервер работает под управлением PocketMine-MP версии 5.1.3+dev
 2023-06-20 [20:44:15.875] [Server thread/INFO]: PocketMine-MP распространяется под LGPL лицензией
+2023-06-20 [20:44:18.638] [Server thread/INFO]: Loading resource packs...
+2023-06-20 [20:44:19.261] [Server thread/INFO]: Подготовка мира "world"
+2023-06-20 [20:44:20.128] [Server thread/INFO]: Сетевой интерфейс Minecraft работает на 0.0.0.0:19132
+2023-06-20 [20:44:20.129] [Server thread/INFO]: GS4 Query слушатель работает на 0.0.0.0:19132
+2023-06-20 [20:44:20.312] [Server thread/INFO]: Сетевой интерфейс Minecraft работает на [::]:19133
+2023-06-20 [20:44:20.312] [Server thread/INFO]: GS4 Query слушатель работает на [::]:19133
+2023-06-20 [20:44:20.321] [Server thread/INFO]: Игровой режим по умолчанию: Режим выживания
+2023-06-20 [20:44:20.322] [Server thread/INFO]: Если вы считаете этот проект полезным, рассмотрите возможность пожертвования на поддержку развития: https://patreon.com/pocketminemp
+2023-06-20 [20:44:20.322] [Server thread/INFO]: Загружено (4.992 сек.)! Для справки, введите "help" или "?"
+2023-06-20 [20:44:20.529] [Server thread/INFO]: [Update Checker] You're running a Beta build, but you're receiving update notifications for Stable builds.
+2023-06-20 [20:44:20.530] [Server thread/INFO]: [Update Checker] To get notified about new Beta or Development builds, change 'preferred-channel' in your pocketmine.yml to 'beta' or 'development'.
