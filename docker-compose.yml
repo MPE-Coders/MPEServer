@@ -2,14 +2,29 @@ version: '3'
 
 services:
 
-  server:
-    container_name: mcpe-server
+  mcpe-php:
+    container_name: mcpe-php
     # Delete string "build: ./php" if you want use complate image from dockerhub
+    image: xackigiff/mcpe-php-8:latest
     build: ./php
-    image: xackigiff/mcpe-php:latest
+  
+  mcpe-multicore:
+    container_name: mcpe-multicore
+    build: ./build/composer
+    depends_on:
+      - mcpe-php
+    image: xackigiff/mcpe-php-8:latest
+
+  run-lobby:
+    container_name: mcpe-lobby
+    image: xackigiff/mcpe-php-8:latest
+    depends_on:
+      - mcpe-multicore
     volumes:
-      - ./server:/home/mcpe/server
-    command: /bin/bash -c 'cd /home/mcpe/server/ && ./start.sh -l'
+      - ./lobby:/home/mcpe/lobby
+    command: /bin/bash -c "cp /home/mcpe/PocketMine-MP.phar /home/mcpe/lobby/PocketMine-MP.phar && \
+                           cd /home/mcpe/lobby/ && \
+                           ./start.sh -l"
     ports:
       - 19132:19132/tcp
       - 19132:19132/udp

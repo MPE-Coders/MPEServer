@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 DIR="$(cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 cd "$DIR"
 
@@ -20,13 +20,13 @@ while getopts "p:f:l" OPTION 2> /dev/null; do
 done
 
 if [ "$PHP_BINARY" == "" ]; then
-	if [ -f ../bin/php7/bin/php ]; then
+	if [ -f ../pm5/bin/php7/bin/php ]; then
 		export PHPRC=""
-		PHP_BINARY="../bin/php7/bin/php"
+		PHP_BINARY="../pm5/bin/php7/bin/php"
 	elif [[ ! -z $(type php 2> /dev/null) ]]; then
 		PHP_BINARY=$(type -p php)
 	else
-		echo "Couldn't find a PHP binary in system PATH or $PWD/bin/php7/bin"
+		echo "Couldn't find a PHP binary in system PATH or /home/mcpe/pm5/bin/php7/bin"
 		echo "Please refer to the installation instructions at https://doc.pmmp.io/en/rtfd/installation.html"
 		exit 1
 	fi
