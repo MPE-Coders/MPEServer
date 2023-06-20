@@ -21,14 +21,18 @@ RUN rm -rf /var/lib/{apt,dpkg,git}
 
 RUN chown -Rf mcpe:mcpe /app/multicore
 RUN chown -Rf mcpe:mcpe /home/mcpe
+
 USER mcpe
 
 RUN composer install
 RUN composer make-server
 
+USER root
+RUN find * | grep -v PocketMine-MP.phar | xargs rm -Rf
+USER mcpe
+
 WORKDIR /home/mcpe
 RUN cd /home/mcpe
 RUN mkdir lobby
 
-RUN cp /app/multicore/PocketMine-MP.phar /home/mcpe/PocketMine-MP.phar
-RUN rm -Rf /app/multicore/
+RUN mv /app/multicore/PocketMine-MP.phar /home/mcpe/PocketMine-MP.phar
