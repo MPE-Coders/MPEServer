@@ -54,8 +54,8 @@ RUN rm ./pm4/compile.sh
 RUN rm ./pm5/compile.sh
 
 RUN ln -s ${PM5}/bin/php7/bin/php /usr/bin/php
-RUN echo "phar.readonly=1" >> ${PM5}/bin/php7/bin/php.ini
-RUN echo "phar.readonly=1" >> ${PM4}/bin/php7/bin/php.ini
+RUN echo "phar.readonly=0" >> ${PM5}/bin/php7/bin/php.ini
+RUN echo "phar.readonly=0" >> ${PM4}/bin/php7/bin/php.ini
 
 # Adding composer PM5 support
 RUN curl -sS https://getcomposer.org/installer | /usr/bin/php \
