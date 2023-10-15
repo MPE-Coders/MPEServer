@@ -1,11 +1,13 @@
 FROM xackigiff/mcpe-php-8:latest
 
-ENV HOME=/app
+ENV HOME=/home/mcpe
 ENV PHP=/home/mcpe/pm5/bin/php7/bin/php 
 
-WORKDIR /app
+WORKDIR /home/mcpe
 
 RUN cd ${HOME}
+
+RUN whoami
 
 RUN mkdir multicore
 

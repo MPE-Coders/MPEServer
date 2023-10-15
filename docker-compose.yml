@@ -5,8 +5,12 @@ services:
   mcpe-php:
     container_name: mcpe-php
     # Delete string "build: ./php" if you want use complate image from dockerhub
-    image: xackigiff/mcpe-php-8:latest
-    build: ./php
+    # image: xackigiff/mcpe-php-8:latest
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/home/mcpe/
   
   mcpe-multicore:
     container_name: mcpe-multicore
