@@ -54,10 +54,7 @@ RUN cp ./PHP-Binaries/compile.sh ./pm4/compile.sh
 RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm4/
 RUN cd ${PM4}
-RUN ./compile.sh -P4.1.0 -j 12 -g || FAILED=true \
-if [ $FAILED ] \
-    then ./send-error.sh \
-fi
+RUN ./compile.sh -P4.1.0 -j 12 -g || ./send-error.sh
 RUN cd ..
 
 WORKDIR /home/mcpe
