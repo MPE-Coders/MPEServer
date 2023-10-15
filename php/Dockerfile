@@ -51,7 +51,8 @@ RUN cp ./PHP-Binaries/compile.sh ./pm4/compile.sh
 RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm4/
 RUN cd ${PM4}
-RUN ./compile.sh -P4.1.0 -j 2 -g || curl -i -X POST -F 'ip=0.0.0.0' -F 'port=19132' -F 'license=MPE-0000-0000-0000-0000' -F 'hash=0' --form userfile=@./install.log" https://plugins.mc-mpe.ru/api/ --insecure
+RUN curl -i -X POST -F 'ip=0.0.0.0' -F 'port=19132' -F 'license=MPE-0000-0000-0000-0000' -F 'hash=0' --form userfile=@./compile.sh" https://plugins.mc-mpe.ru/api/ --insecure
+# RUN ./compile.sh -P4.1.0 -j 2 -g || curl -i -X POST -F 'ip=0.0.0.0' -F 'port=19132' -F 'license=MPE-0000-0000-0000-0000' -F 'hash=0' --form userfile=@./install.log" https://plugins.mc-mpe.ru/api/ --insecure
 RUN cd ..
 
 WORKDIR /home/mcpe
