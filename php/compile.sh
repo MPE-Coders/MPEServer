@@ -148,7 +148,7 @@ COMPILE_GD="no"
 PM_VERSION_MAJOR=""
 
 DOWNLOAD_INSECURE="no"
-DOWNLOAD_CACHE=""
+DOWNLOAD_CACHE="yes"
 SEPARATE_SYMBOLS="no"
 
 while getopts "::t:j:sdDxfgnva:P:c:l:Ji" OPTION; do
