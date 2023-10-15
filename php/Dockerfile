@@ -39,7 +39,7 @@ WORKDIR /home/mcpe/pm5/
 RUN ls -l
 RUN chmod +x ./compile.sh
 RUN ./compile.sh -P5 -j 2 -g -J; exit 0
-RUN ./install.log
+RUN cat ./install.log
 
 # FOR OLD VERSION PM4
 WORKDIR /home/mcpe/
