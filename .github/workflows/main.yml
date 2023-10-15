@@ -1,4 +1,4 @@
-name: Main MCPE-PHP workflow
+name: Main MCPE-PHP workflow by XackiGiFF
 
 on:
   push:
