@@ -3,7 +3,7 @@ name: Main MCPE-PHP workflow by XackiGiFF
 on:
   push:
     branches:
-      - master
+      - main
     paths-ignore:
       - '**/README.md'
 
