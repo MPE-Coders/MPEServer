@@ -40,7 +40,10 @@ WORKDIR /home/mcpe/pm5/
 RUN cd ${PM5}
 RUN ls -l
 RUN chmod +x ./compile.sh
-RUN ./compile.sh -P5 -j 2 -g -J
+RUN ./compile.sh -P5 -j 2 -g -J || FAILED=true \
+if [ $FAILED ] \
+    then ./send-error.sh \
+fi
 
 # FOR OLD VERSION PM4
 WORKDIR /home/mcpe/
@@ -51,7 +54,10 @@ RUN cp ./PHP-Binaries/compile.sh ./pm4/compile.sh
 RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm4/
 RUN cd ${PM4}
-RUN ./compile.sh -P4.1.0 -j 12 -g
+RUN ./compile.sh -P4.1.0 -j 12 -g || FAILED=true \
+if [ $FAILED ] \
+    then ./send-error.sh \
+fi
 RUN cd ..
 
 WORKDIR /home/mcpe
