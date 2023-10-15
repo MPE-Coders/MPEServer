@@ -16,7 +16,9 @@ RUN apt install --no-install-recommends -y ca-certificates \
     sudo curl make gcc wget \
     autoconf automake m4 \
     bzip2 bison g++ cmake pkg-config \
-    re2c libtool-bin screen mc nano
+    re2c libtool-bin screen mc nano \
+#Add new xz-utils cause very need, LoL
+    xz-utils
 
 RUN useradd -d ${HOME} -m ${USER} && passwd -d ${USER} && adduser ${USER} sudo
 
