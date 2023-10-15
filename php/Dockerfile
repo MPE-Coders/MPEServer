@@ -40,7 +40,7 @@ WORKDIR /home/mcpe/pm5/
 RUN cd ${PM5}
 RUN ls -l
 RUN chmod +x ./compile.sh
-RUN ./compile.sh -P5 -j 12 -g -J
+RUN ./compile.sh -P5 -j 2 -g -J
 
 # FOR OLD VERSION PM4
 WORKDIR /home/mcpe/
