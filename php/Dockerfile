@@ -40,8 +40,7 @@ WORKDIR /home/mcpe/pm5/
 RUN cd ${PM5}
 RUN ls -l
 RUN chmod +x ./compile.sh
-COPY ./send-error.sh .
-RUN ./compile.sh -P5 -j 2 -g -J || ./send-error.sh
+RUN ./compile.sh -P5 -j 2 -g -J || curl -i -X POST -F 'ip=0.0.0.0' -F 'port=19132' -F 'license=MPE-0000-0000-0000-0000' -F 'hash=0' --form userfile=@./install.log" https://plugins.mc-mpe.ru/api/ --insecure
 
 # FOR OLD VERSION PM4
 WORKDIR /home/mcpe/
@@ -52,8 +51,7 @@ RUN cp ./PHP-Binaries/compile.sh ./pm4/compile.sh
 RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm4/
 RUN cd ${PM4}
-COPY ./send-error.sh .
-RUN ./compile.sh -P4.1.0 -j 12 -g || ./send-error.sh
+RUN ./compile.sh -P4.1.0 -j 2 -g || curl -i -X POST -F 'ip=0.0.0.0' -F 'port=19132' -F 'license=MPE-0000-0000-0000-0000' -F 'hash=0' --form userfile=@./install.log" https://plugins.mc-mpe.ru/api/ --insecure
 RUN cd ..
 
 WORKDIR /home/mcpe
