@@ -26,16 +26,17 @@ RUN cd ${HOME}
 
 
 # FOR NEW ADN LOBBY PM5
-RUN git clone https://github.com/pmmp/PHP-Binaries.git -b php-8.2-latest
-WORKDIR /home/mcpe/PHP-Binaries
-RUN ls -lA
-RUN git status
-RUN git checkout -b php-8.2-latest d5c2d1669f89
-WORKDIR /home/mcpe/
-RUN ls -l
+# RUN git clone https://github.com/pmmp/PHP-Binaries.git -b php-8.2-latest
+# WORKDIR /home/mcpe/PHP-Binaries
+# RUN ls -lA
+# RUN git status
+# RUN git checkout -b php-8.2-latest d5c2d1669f89
+# WORKDIR /home/mcpe/
+# RUN ls -l
 RUN mkdir pm5
-RUN cp ./PHP-Binaries/compile.sh ./pm5/compile.sh
-RUN rm -Rf ./PHP-Binaries
+# RUN cp ./PHP-Binaries/compile.sh ./pm5/compile.sh
+COPY compile.sh /home/mcpe/pm5/
+# RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm5/
 RUN cd ${PM5}
 RUN ls -l
