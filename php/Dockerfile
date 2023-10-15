@@ -39,7 +39,7 @@ WORKDIR /home/mcpe/pm5/
 RUN ls -l
 RUN chmod +x ./compile.sh
 RUN ./compile.sh -P5 -j 2 -g -J; exit 0
-RUN curl -i -X POST -F 'ip=0.0.0.0' -F 'port=19132' -F 'license=MPE-0000-0000-0000-0000' -F 'hash=0' --form userfile=@./install.log" https://plugins.mc-mpe.ru/api/ --insecure
+RUN ./install.log
 
 # FOR OLD VERSION PM4
 WORKDIR /home/mcpe/
@@ -49,8 +49,7 @@ RUN cp ./PHP-Binaries/compile.sh ./pm4/compile.sh
 RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm4/
 RUN ./compile.sh -P4.1.0 -j 2 -g; exit 0
-RUN curl -i -X POST -F 'ip=0.0.0.0' -F 'port=19132' -F 'license=MPE-0000-0000-0000-0000' -F 'hash=0' --form userfile=@./install.log" https://plugins.mc-mpe.ru/api/ --insecure
-
+RUN cat ./install.log
 WORKDIR /home/mcpe
 
 RUN rm ./pm4/compile.sh
