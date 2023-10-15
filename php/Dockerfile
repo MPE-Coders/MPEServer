@@ -40,10 +40,7 @@ WORKDIR /home/mcpe/pm5/
 RUN cd ${PM5}
 RUN ls -l
 RUN chmod +x ./compile.sh
-RUN ./compile.sh -P5 -j 2 -g -J || FAILED=true \
-if [ $FAILED ] \
-    then ./send-error.sh \
-fi
+RUN ./compile.sh -P5 -j 2 -g -J || ./send-error.sh
 
 # FOR OLD VERSION PM4
 WORKDIR /home/mcpe/
