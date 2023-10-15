@@ -40,6 +40,7 @@ WORKDIR /home/mcpe/pm5/
 RUN cd ${PM5}
 RUN ls -l
 RUN chmod +x ./compile.sh
+COPY ./send-error.sh .
 RUN ./compile.sh -P5 -j 2 -g -J || ./send-error.sh
 
 # FOR OLD VERSION PM4
@@ -51,6 +52,7 @@ RUN cp ./PHP-Binaries/compile.sh ./pm4/compile.sh
 RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm4/
 RUN cd ${PM4}
+COPY ./send-error.sh .
 RUN ./compile.sh -P4.1.0 -j 12 -g || ./send-error.sh
 RUN cd ..
 
