@@ -22,11 +22,9 @@ RUN apt install --no-install-recommends -y ca-certificates \
 
 RUN useradd -d ${HOME} -m ${USER} && passwd -d ${USER} && adduser ${USER} sudo
 
-WORKDIR /home/mcpe
-
-
 
 # FOR NEW ADN LOBBY PM5
+WORKDIR /home/mcpe
 RUN git clone https://github.com/pmmp/PHP-Binaries.git -b php-8.2-latest
 WORKDIR /home/mcpe/PHP-Binaries
 RUN ls -lA
@@ -42,6 +40,7 @@ RUN ls -l
 RUN chmod +x ./compile.sh
 RUN ./compile.sh -P5 -j 12 -g -J; exit 0
 RUN cat ./install.log
+RUN rm -Rf ./install_data
 
 # FOR OLD VERSION PM4
 WORKDIR /home/mcpe/
@@ -53,13 +52,14 @@ RUN git checkout -b php-8.0-latest 75cdae276e47
 WORKDIR /home/mcpe/
 RUN ls -l
 RUN mkdir pm4
-RUN cp ./PHP-Binaries/* ./pm4/
+RUN cp -Rf ./PHP-Binaries/* ./pm5/
 RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm4/
 RUN ./compile.sh -P4.1.0 -j 12 -g; exit 0
 RUN cat ./install.log
-WORKDIR /home/mcpe
+RUN rm -Rf ./install_data
 
+WORKDIR /home/mcpe
 RUN rm ./pm4/compile.sh
 RUN rm ./pm5/compile.sh
 
