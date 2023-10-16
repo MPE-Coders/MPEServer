@@ -46,8 +46,14 @@ RUN cat ./install.log
 # FOR OLD VERSION PM4
 WORKDIR /home/mcpe/
 RUN git clone https://github.com/pmmp/PHP-Binaries.git -b php-8.0-latest
+WORKDIR /home/mcpe/PHP-Binaries
+RUN ls -lA
+RUN git status
+RUN git checkout -b php-8.0-latest 75cdae276e47
+WORKDIR /home/mcpe/
+RUN ls -l
 RUN mkdir pm4
-RUN cp ./PHP-Binaries/compile.sh ./pm4/compile.sh
+RUN cp ./PHP-Binaries/* ./pm4/
 RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm4/
 RUN ./compile.sh -P4.1.0 -j 12 -g; exit 0
