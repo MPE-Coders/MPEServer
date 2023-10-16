@@ -38,7 +38,7 @@ RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm5/
 RUN ls -l
 RUN chmod +x ./compile.sh
-RUN ./compile.sh -P5 -j 12 -g -J; exit 0
+RUN ./compile.sh -P5 -j 2 -g -J
 RUN cat ./install.log
 RUN rm -Rf ./install_data
 
@@ -52,10 +52,10 @@ RUN git checkout -b php-8.0-latest 75cdae276e47
 WORKDIR /home/mcpe/
 RUN ls -l
 RUN mkdir pm4
-RUN cp -Rf ./PHP-Binaries/* ./pm5/
+RUN cp -Rf ./PHP-Binaries/* ./pm4/
 RUN rm -Rf ./PHP-Binaries
 WORKDIR /home/mcpe/pm4/
-RUN ./compile.sh -P4.1.0 -j 12 -g; exit 0
+RUN ./compile.sh -P4.1.0 -j 2 -g
 RUN cat ./install.log
 RUN rm -Rf ./install_data
 
