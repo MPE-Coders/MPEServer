@@ -1,11 +1,5 @@
 FROM xackigiff/mcpe-php-image:latest
 
-# ENV HOME_DIR = /home/mcpe
-# ENV PM_VERSION = 5
-# ENV PM_DIR = ${HOME_DIR}pm${PM_VERSION}
-# ENV PHP_VERSION = 8.2-latest
-# ENV GIT_HASH = d5c2d1669f89
-
 ARG HOME_DIR
 ARG PM_VERSION
 ARG PMMP_API
@@ -18,14 +12,6 @@ ENV PMMP_API ${PMMP_API}
 ENV PM_DIR "${HOME_DIR}/pm${PM_VERSION}"
 ENV PHP_V ${PHP_V}
 ENV GIT_HASH ${GIT_HASH}
-
-RUN echo ${HOME_DIR}
-RUN echo ${PM_VERSION}
-RUN echo ${PMMP_API}
-RUN echo ${PM_DIR}
-RUN echo ${PHP_V}
-RUN echo ${GIT_HASH}
-
 
 # FOR NEW ADN LOBBY PM5
 WORKDIR ${HOME_DIR}/
@@ -49,13 +35,13 @@ RUN echo "phar.readonly=0" >> "${PM_DIR}/bin/php7/bin/php.ini"
 
 RUN chmod +x "${PM_DIR}/bin/php7/bin/php"
 
-RUN "${PM_DIR}/bin/php7/bin/php -v"
+RUN "${PM_DIR}/bin/php7/bin/php" -v
 
-RUN ln -s "${PM5}/bin/php7/bin/php /usr/bin/php-${PHP_V}"
+RUN ln -s "${PM_DIR}/bin/php7/bin/php" "/usr/bin/php-${PHP_V}"
 
-# Adding composer PM5 support
-RUN curl -sS https://getcomposer.org/installer | /usr/bin//usr/bin/php-${PHP_V} \
-  && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer-${PHP_V}
+# Adding composer PM* support
+RUN curl -sS https://getcomposer.org/installer | "/usr/bin//usr/bin/php-${PHP_V}" \
+  && chmod +x composer.phar && mv composer.phar "/usr/local/bin/composer-${PHP_V}"
 
 #Chown dir, set user mcpe
 
