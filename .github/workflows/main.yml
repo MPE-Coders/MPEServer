@@ -60,7 +60,7 @@ jobs:
             HOME_DIR=/home/mcpe
             PM_VERSION=4
             PMMP_API=4.20.0
-            PHP_VERSION=8.1-latest
+            PHP_V=8.1-latest
             GIT_HASH=a34e48e7da75
 
 
