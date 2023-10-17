@@ -40,7 +40,7 @@ RUN "${PM_DIR}/bin/php7/bin/php" -v
 RUN ln -s "${PM_DIR}/bin/php7/bin/php" "/usr/bin/php-${PHP_V}"
 
 # Adding composer PM* support
-RUN curl -sS https://getcomposer.org/installer | "/usr/bin//usr/bin/php-${PHP_V}" \
+RUN curl -sS https://getcomposer.org/installer | "/usr/bin/php-${PHP_V}" \
   && chmod +x composer.phar && mv composer.phar "/usr/local/bin/composer-${PHP_V}"
 
 #Chown dir, set user mcpe
