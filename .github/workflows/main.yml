@@ -56,7 +56,7 @@ jobs:
           context: ./php/build/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/mcpe-php:pm4
-          secrets: |
+          build-args: |
             HOME_DIR=/home/mcpe
             PM_VERSION=4
             PMMP_API=4.20.0
@@ -88,7 +88,7 @@ jobs:
           context: ./php/build/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/mcpe-php:pm4
-          secrets: |
+          build-args: |
             HOME_DIR=/home/mcpe
             PM_VERSION=5
             PMMP_API=5
