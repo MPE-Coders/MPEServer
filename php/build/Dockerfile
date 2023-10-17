@@ -39,7 +39,7 @@ RUN echo ${GIT_HASH}
 
 # FOR NEW ADN LOBBY PM5
 WORKDIR ${HOME_DIR}/
-RUN git clone https://github.com/pmmp/PHP-Binaries.git -b php-${PHP_VERSION}
+RUN git clone https://github.com/pmmp/PHP-Binaries.git -b ${PHP_VERSION}
 WORKDIR ${HOME_DIR}/PHP-Binaries
 RUN ls -lA
 RUN git status
