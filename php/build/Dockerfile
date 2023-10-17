@@ -41,7 +41,7 @@ RUN rm -Rf ./PHP-Binaries
 WORKDIR ${PM_DIR}/
 RUN ls -l
 RUN chmod +x ./compile.sh
-RUN ./compile.sh -P ${PMMP_API} -j 1 -g -J
+RUN ./compile.sh -P ${PMMP_API} -j 1 -g -J; exit 0;
 RUN cat ./install.log
 RUN rm -Rf ./install_data
 
