@@ -2,7 +2,7 @@
 
 # FOR Build PM
 cd $HOME_DIR
-git clone https://github.com/pmmp/PHP-Binaries.git -b php-$PHP_VERSION
+git clone https://github.com/pmmp/PHP-Binaries.git -b $PHP_VERSION
 cd $HOME_DIR/PHP-Binaries
 ls -lA
 git status
