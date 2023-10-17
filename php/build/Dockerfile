@@ -44,5 +44,3 @@ RUN curl -sS https://getcomposer.org/installer | "/usr/bin/php-${PHP_V}" \
   && chmod +x composer.phar && mv composer.phar "/usr/local/bin/composer-${PHP_V}"
 
 #Chown dir, set user mcpe
-
-CMD ["/bin/sh"]
