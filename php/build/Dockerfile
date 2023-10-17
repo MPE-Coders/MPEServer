@@ -14,13 +14,13 @@ RUN --mount=type=secret,id=PM_VERSION PM_VERSION=$(cat /run/secrets/PM_VERSION) 
 RUN --mount=type=secret,id=PHP_VERSION PHP_VERSION=$(cat /run/secrets/PHP_VERSION) \
  && echo ${PHP_VERSION}
 RUN --mount=type=secret,id=GIT_HASH GIT_HASH=$(cat /run/secrets/GIT_HASH) \
- && echo ${GIT_HASH}
+ && echo ${PHP_VERSION}
 
-# ENV HOME_DIR = $HOME_DIR
-# ENV PM_VERSION = $PM_VERSION
+ENV HOME_DIR = ${HOME_DIR}
+ENV PM_VERSION = ${PM_VERSION}
 ENV PM_DIR = ${HOME_DIR}pm${PM_VERSION}
-# ENV PHP_VERSION = $PHP_VERSION
-# ENV GIT_HASH = $GIT_HASH
+ENV PHP_VERSION = ${PHP_VERSION}
+ENV GIT_HASH = ${PHP_VERSION}
 
 
 # FOR NEW ADN LOBBY PM5
