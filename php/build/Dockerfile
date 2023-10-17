@@ -22,6 +22,6 @@ RUN --mount=type=secret,id=HOME_DIR \
     export PHP_VERSION=$(cat /run/secrets/PHP_VERSION) && \
     export GIT_HASH=$(cat /run/secrets/GIT_HASH) && \
     export PM_DIR = $(cat /run/secrets/HOME_DIR)pm$(cat /run/secrets/PM_VERSION) && \
-    ./build.sh
+    echo $HOME_DIR $PM_VERSION $PMMP_API $PHP_VERSION $GIT_HASH $PM_DIR
 
 CMD ["/bin/sh"]
