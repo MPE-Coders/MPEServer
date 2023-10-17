@@ -7,25 +7,34 @@ FROM xackigiff/mcpe-php-image:latest
 # ENV GIT_HASH = d5c2d1669f89
 
 # Mount the secret to /run/secrets:
-RUN --mount=type=secret,id=HOME_DIR
-  # HOME_DIR="$(cat /run/secrets/HOME_DIR)"
-RUN --mount=type=secret,id=PM_VERSION
-  # PM_VERSION="$(cat /run/secrets/PM_VERSION)"
-RUN --mount=type=secret,id=PMMP_API
-  # PMMP_API="$(cat /run/secrets/PMMP_API)"
-RUN --mount=type=secret,id=PMMP_DIR
-  # PMMP_DIR="$(cat /run/secrets/PMMP_DIR)"
-RUN --mount=type=secret,id=PHP_VERSION
-  # PHP_VERSION="$(cat /run/secrets/PHP_VERSION)"
-RUN --mount=type=secret,id=GIT_HASH
-  # GIT_HASH="$(cat /run/secrets/GIT_HASH)"
+RUN --mount=type=secret,id=HOME_DIR \
+  HOME_DIR="$(cat /run/secrets/HOME_DIR)" \
+  export HOME_DIR
 
-ENV HOME_DIR = $(cat /run/secrets/HOME_DIR)
-ENV PM_VERSION = $(cat /run/secrets/PM_VERSION)
-ENV PMMP_API = $(cat /run/secrets/PMMP_API)
+RUN --mount=type=secret,id=PM_VERSION \
+  PM_VERSION="$(cat /run/secrets/PM_VERSION)" \
+  export PM_VERSION
+
+RUN --mount=type=secret,id=PMMP_API \
+  PMMP_API="$(cat /run/secrets/PMMP_API)" \
+  export PMMP_API
+
+RUN --mount=type=secret,id=PMMP_DIR \
+  PMMP_DIR="$(cat /run/secrets/PMMP_DIR)" \
+  export PMMP_DIR
+RUN --mount=type=secret,id=PHP_VERSION \
+  PHP_VERSION="$(cat /run/secrets/PHP_VERSION)" \
+  export PHP_VERSION
+RUN --mount=type=secret,id=GIT_HASH \
+  GIT_HASH="$(cat /run/secrets/GIT_HASH)" \
+  export GIT_HASH
+
+ENV HOME_DIR = ${HOME_DIR}
+ENV PM_VERSION = ${PM_VERSION}
+ENV PMMP_API = ${PMMP_API}
 ENV PM_DIR = ${HOME_DIR}pm${PM_VERSION}
-ENV PHP_VERSION = $(cat /run/secrets/PHP_VERSION)
-ENV GIT_HASH = $(cat /run/secrets/GIT_HASH)
+ENV PHP_VERSION = ${PHP_VERSION}
+ENV GIT_HASH = ${GIT_HASH}
 
 RUN echo ${HOME_DIR}
 RUN echo ${PM_VERSION}
