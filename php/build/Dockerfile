@@ -8,8 +8,7 @@ FROM xackigiff/mcpe-php-image:latest
 
 # Mount the secret to /run/secrets:
 RUN --mount=type=secret,id=HOME_DIR \
-  HOME_DIR="$(cat /run/secrets/HOME_DIR)" \
-
+  HOME_DIR="$(cat /run/secrets/HOME_DIR)"
 RUN --mount=type=secret,id=PM_VERSION \
   PM_VERSION="$(cat /run/secrets/PM_VERSION)"
 RUN --mount=type=secret,id=PMMP_API \
