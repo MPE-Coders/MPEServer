@@ -36,7 +36,7 @@ RUN git status
 RUN git checkout -b php-${PHP_VERSION} ${GIT_HASH}
 WORKDIR ${HOME_DIR}/
 RUN ls -l
-RUN cp -Rf ./PHP-Binaries/* ${PM_DIR}/
+RUN cp -Rf ./PHP-Binaries/* "${PM_DIR}/"
 RUN rm -Rf ./PHP-Binaries
 WORKDIR ${PM_DIR}/
 RUN ls -l
@@ -45,13 +45,13 @@ RUN ./compile.sh -P${PMMP_API} -j 12 -g -J
 RUN cat ./install.log
 RUN rm -Rf ./install_data
 
-RUN echo "phar.readonly=0" >> ${PM_DIR}/bin/php7/bin/php.ini
+RUN echo "phar.readonly=0" >> "${PM_DIR}/bin/php7/bin/php.ini"
 
 RUN chmod +x "${PM_DIR}/bin/php7/bin/php"
 
-RUN ${PM_DIR}/bin/php7/bin/php -v
+RUN "${PM_DIR}/bin/php7/bin/php -v"
 
-RUN ln -s ${PM5}/bin/php7/bin/php /usr/bin/php-${PHP_VERSION}
+RUN ln -s "${PM5}/bin/php7/bin/php /usr/bin/php-${PHP_VERSION}"
 
 # Adding composer PM5 support
 RUN curl -sS https://getcomposer.org/installer | /usr/bin//usr/bin/php-${PHP_VERSION} \
