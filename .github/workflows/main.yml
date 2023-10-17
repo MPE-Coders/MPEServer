@@ -57,8 +57,9 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/mcpe-php:pm4
           secrets: |
-            Home_DIR=/home/mcpe
+            HOME_DIR=/home/mcpe
             PM_VERSION=4
+            PMMP_API=4.20.0
             PHP_VERSION=php-8.1-latest
             GIT_HASH=a34e48e7da75
 

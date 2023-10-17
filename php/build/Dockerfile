@@ -11,47 +11,50 @@ RUN --mount=type=secret,id=HOME_DIR HOME_DIR=$(cat /run/secrets/HOME_DIR) \
  && echo ${HOME_DIR}
 RUN --mount=type=secret,id=PM_VERSION PM_VERSION=$(cat /run/secrets/PM_VERSION) \
  && echo ${PM_VERSION}
+RUN --mount=type=secret,id=PMMP_API PMMP_API=$(cat /run/secrets/PMMP_API) \
+ && echo ${PMMP_API}
 RUN --mount=type=secret,id=PHP_VERSION PHP_VERSION=$(cat /run/secrets/PHP_VERSION) \
  && echo ${PHP_VERSION}
 RUN --mount=type=secret,id=GIT_HASH GIT_HASH=$(cat /run/secrets/GIT_HASH) \
- && echo ${PHP_VERSION}
+ && echo ${GIT_HASH}
 
-ENV HOME_DIR = ${HOME_DIR}
-ENV PM_VERSION = ${PM_VERSION}
-ENV PM_DIR = ${HOME_DIR}pm${PM_VERSION}
-ENV PHP_VERSION = ${PHP_VERSION}
-ENV GIT_HASH = ${PHP_VERSION}
+# ENV HOME_DIR = ${HOME_DIR}
+# ENV PM_VERSION = ${PM_VERSION}
+# ENV PMMP_API = ${PMMP_API}
+# ENV PM_DIR = ${HOME_DIR}pm${PM_VERSION}
+# ENV PHP_VERSION = ${PHP_VERSION}
+# ENV GIT_HASH = ${GIT_HASH}
 
 
 # FOR NEW ADN LOBBY PM5
-WORKDIR ${HOME_DIR}/
-RUN git clone https://github.com/pmmp/PHP-Binaries.git -b php-${PHP_VERSION}
-WORKDIR ${HOME_DIR}/PHP-Binaries
+WORKDIR "${HOME_DIR}/"
+RUN git clone https://github.com/pmmp/PHP-Binaries.git -b "php-${PHP_VERSION}"
+WORKDIR "${HOME_DIR}/PHP-Binaries"
 RUN ls -lA
 RUN git status
-RUN git checkout -b php-${PHP_VERSION} ${GIT_HASH}
-WORKDIR ${HOME_DIR}/
+RUN git checkout -b "php-${PHP_VERSION} ${GIT_HASH}"
+WORKDIR "${HOME_DIR}/"
 RUN ls -l
-RUN cp -Rf ./PHP-Binaries/* ${PM_DIR}/
+RUN cp -Rf ./PHP-Binaries/* "${PM_DIR}/"
 RUN rm -Rf ./PHP-Binaries
-WORKDIR ${PM_DIR}/
+WORKDIR "${PM_DIR}/"
 RUN ls -l
 RUN chmod +x ./compile.sh
-RUN ./compile.sh -P5 -j 12 -g -J
+RUN ./compile.sh "-P${PMMP_API}" -j 12 -g -J
 RUN cat ./install.log
 RUN rm -Rf ./install_data
 
-RUN echo "phar.readonly=0" >> ${PM_DIR}/bin/php7/bin/php.ini
+RUN echo "phar.readonly=0" >> "${PM_DIR}/bin/php7/bin/php.ini"
 
-RUN chmod +x ${PM_DIR}/bin/php7/bin/php
+RUN chmod +x "${PM_DIR}/bin/php7/bin/php"
 
-RUN ${PM_DIR}/bin/php7/bin/php -v
+RUN "${PM_DIR}/bin/php7/bin/php" -v
 
-RUN ln -s ${PM5}/bin/php7/bin/php /usr/bin/php-${PHP_VERSION}
+RUN ln -s "${PM5}/bin/php7/bin/php /usr/bin/php-${PHP_VERSION}"
 
 # Adding composer PM5 support
-RUN curl -sS https://getcomposer.org/installer | /usr/bin//usr/bin/php-${PHP_VERSION} \
-  && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer-${PHP_VERSION}
+RUN curl -sS https://getcomposer.org/installer | "/usr/bin//usr/bin/php-${PHP_VERSION}" \
+  && chmod +x composer.phar && mv composer.phar "/usr/local/bin/composer-${PHP_VERSION}"
 
 #Chown dir, set user mcpe
 
