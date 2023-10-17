@@ -18,19 +18,19 @@ RUN --mount=type=secret,id=PHP_VERSION \
 RUN --mount=type=secret,id=GIT_HASH \
   GIT_HASH="$(cat /run/secrets/GIT_HASH)"
 
-# ENV HOME_DIR = ${cat /run/secrets/HOME_DIR}
-# ENV PM_VERSION = ${cat /run/secrets/PM_VERSION}
-# ENV PMMP_API = ${cat /run/secrets/PMMP_API}
+ENV HOME_DIR = ${HOME_DIR}
+ENV PM_VERSION = ${PM_VERSION}
+ENV PMMP_API = ${PMMP_API}
 ENV PM_DIR = ${HOME_DIR}pm${PM_VERSION}
-# ENV PHP_VERSION = ${cat /run/secrets/PHP_VERSION}
-# ENV GIT_HASH = ${cat /run/secrets/GIT_HASH}
+ENV PHP_VERSION = ${PHP_VERSION}
+ENV GIT_HASH = ${GIT_HASH}
 
 RUN echo ${HOME_DIR}
 RUN echo ${PM_VERSION}
 RUN echo ${PMMP_API}
 RUN echo ${PM_DIR}
 RUN echo ${PHP_VERSION}
-RUN echo echo ${GIT_HASH}
+RUN echo ${GIT_HASH}
 
 
 # FOR NEW ADN LOBBY PM5
