@@ -92,7 +92,7 @@ jobs:
             HOME_DIR=/home/mcpe
             PM_VERSION=5
             PMMP_API=5
-            PHP_VERSION=8.2-latest
+            PHP_V=8.2-latest
             GIT_HASH=d5c2d1669f89
 
   # Merge PM4 & PM5

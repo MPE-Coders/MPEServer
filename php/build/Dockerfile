@@ -9,31 +9,31 @@ FROM xackigiff/mcpe-php-image:latest
 ARG HOME_DIR
 ARG PM_VERSION
 ARG PMMP_API
-ARG PHP_VERSION
+ARG PHP_V
 ARG GIT_HASH
 
 ENV HOME_DIR ${HOME_DIR}
 ENV PM_VERSION ${PM_VERSION}
 ENV PMMP_API ${PMMP_API}
 ENV PM_DIR "${HOME_DIR}/pm${PM_VERSION}"
-ENV PHP_VERSION ${PHP_VERSION}
+ENV PHP_V ${PHP_V}
 ENV GIT_HASH ${GIT_HASH}
 
 RUN echo ${HOME_DIR}
 RUN echo ${PM_VERSION}
 RUN echo ${PMMP_API}
 RUN echo ${PM_DIR}
-RUN echo ${PHP_VERSION}
+RUN echo ${PHP_V}
 RUN echo ${GIT_HASH}
 
 
 # FOR NEW ADN LOBBY PM5
 WORKDIR ${HOME_DIR}/
-RUN git clone https://github.com/pmmp/PHP-Binaries.git -b php-${PHP_VERSION}
+RUN git clone https://github.com/pmmp/PHP-Binaries.git -b php-${PHP_V}
 WORKDIR ${HOME_DIR}/PHP-Binaries
 RUN ls -lA
 RUN git status
-RUN git checkout -b php-${PHP_VERSION} ${GIT_HASH}
+RUN git checkout -b php-${PHP_V} ${GIT_HASH}
 WORKDIR ${HOME_DIR}/
 RUN ls -l
 RUN cp -Rf ./PHP-Binaries/* "${PM_DIR}/"
@@ -51,11 +51,11 @@ RUN chmod +x "${PM_DIR}/bin/php7/bin/php"
 
 RUN "${PM_DIR}/bin/php7/bin/php -v"
 
-RUN ln -s "${PM5}/bin/php7/bin/php /usr/bin/php-${PHP_VERSION}"
+RUN ln -s "${PM5}/bin/php7/bin/php /usr/bin/php-${PHP_V}"
 
 # Adding composer PM5 support
-RUN curl -sS https://getcomposer.org/installer | /usr/bin//usr/bin/php-${PHP_VERSION} \
-  && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer-${PHP_VERSION}
+RUN curl -sS https://getcomposer.org/installer | /usr/bin//usr/bin/php-${PHP_V} \
+  && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer-${PHP_V}
 
 #Chown dir, set user mcpe
 
