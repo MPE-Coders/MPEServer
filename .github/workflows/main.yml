@@ -56,11 +56,11 @@ jobs:
           context: ./php/build/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/mcpe-php:pm4
-        env:
-          HOME_DIR: /home/mcpe
-          PM_VERSION: 4
-          PHP_VERSION: php-8.1-latest
-          GIT_HASH: a34e48e7da75
+          secrets: |
+            HOME_DIR=/home/mcpe
+            PM_VERSION=4
+            PHP_VERSION=php-8.1-latest
+            GIT_HASH=a34e48e7da75
 
 
   # Build PM5
@@ -80,6 +80,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push PM5 to DockerHub
+        uses: docker/build-push-action@v4
+        with:
+          context: ./php/build/
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/mcpe-php:pm4
+          secrets: |
+            HOME_DIR=/home/mcpe
+            PM_VERSION=5
+            PHP_VERSION=php-8.2-latest
+            GIT_HASH=d5c2d1669f89
 
   # Merge PM4 & PM5
   mcpe_merge_and_push_to_docker_hub:
