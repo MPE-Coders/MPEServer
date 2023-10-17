@@ -33,7 +33,7 @@ RUN git clone https://github.com/pmmp/PHP-Binaries.git -b ${PHP_VERSION}
 WORKDIR ${HOME_DIR}/PHP-Binaries
 RUN ls -lA
 RUN git status
-RUN git checkout -b php-${PHP_VERSION} ${GIT_HASH}
+RUN git checkout -b ${PHP_VERSION} ${GIT_HASH}
 WORKDIR ${HOME_DIR}/
 RUN ls -l
 RUN cp -Rf ./PHP-Binaries/* "${PM_DIR}/"
@@ -51,10 +51,10 @@ RUN chmod +x "${PM_DIR}/bin/php7/bin/php"
 
 RUN "${PM_DIR}/bin/php7/bin/php -v"
 
-RUN ln -s "${PM5}/bin/php7/bin/php /usr/bin/php-${PHP_VERSION}"
+RUN ln -s "${PM5}/bin/php7/bin/php /usr/bin/${PHP_VERSION}"
 
 # Adding composer PM5 support
-RUN curl -sS https://getcomposer.org/installer | /usr/bin//usr/bin/php-${PHP_VERSION} \
+RUN curl -sS https://getcomposer.org/installer | /usr/bin//usr/bin/${PHP_VERSION} \
   && chmod +x composer.phar && mv composer.phar /usr/local/bin/composer-${PHP_VERSION}
 
 #Chown dir, set user mcpe
