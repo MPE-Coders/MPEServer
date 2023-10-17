@@ -25,7 +25,7 @@ ENV PM_VERSION = $(cat /run/secrets/PM_VERSION)
 ENV PMMP_API = $(cat /run/secrets/PMMP_API)
 ENV PM_DIR = ${HOME_DIR}pm${PM_VERSION}
 ENV PHP_VERSION = $(cat /run/secrets/PHP_VERSION)
-ENV GIT_HASH = ${cat /run/secrets/GIT_HASH}
+ENV GIT_HASH = $(cat /run/secrets/GIT_HASH)
 
 RUN echo ${HOME_DIR}
 RUN echo ${PM_VERSION}
