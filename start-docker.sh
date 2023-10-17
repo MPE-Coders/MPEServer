@@ -7,5 +7,5 @@ docker run -it --rm \
 -p 19133:19133  \
 -p 19133:19133/udp \
 -v ./lobby/:/home/mcpe/lobby \
- xackigiff/mcpe-php-8:latest \
+ xackigiff/mcpe-php:latest \
  ./lobby/start.sh -l

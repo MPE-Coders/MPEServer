@@ -2,8 +2,8 @@
 
 ## Загрузите репозиторий:
 ```bash
-git clone https://github.com/XackiGiFF/Docker-Bedrock-Launcher.git
-cd Docker-Bedrock-Launcher
+git clone https://github.com/MPE-Coders/MPEServer.git
+cd MPEServer
 ```
 
 Для чистой сборки самого нового Minecrfat с мультиядром 1.18.0-1.20.0 используйте:
@@ -22,7 +22,7 @@ PHP версии берутся из репозитория https://github.com/p
 Для API 5.0.0+ используйте - PHP 8.2 +JIT, +GB:
 /home/mcpe/pm5/bin/php7/bin/php
 
-Для API 4.0.0+ используйте - PHP 8.0 +JIT, +GB:
+Для API 4.0.0+ используйте - PHP 8.1 +JIT, +GB:
 /home/mcpe/pm4/bin/php7/bin/php
 
 Запуск сервера в докер контейнере выполняется за счет запуска скрипта:
@@ -47,7 +47,7 @@ docker run -it --rm \
 -p 19133:19133  \
 -p 19133:19133/udp \
 -v ./lobby/:/home/mcpe/lobby \
- xackigiff/mcpe-php-8:latest \
+ xackigiff/mcpe-php:latest \
  ./lobby/start.sh -l
 ```
 
@@ -78,7 +78,7 @@ docker run -it --rm \
 -p 19133:19133  \
 -p 19133:19133/udp \
 -v ./server/:/home/mcpe/server \
- xackigiff/mcpe-php-8:latest \
+ xackigiff/mcpe-php:latest \
  ./server/start.sh -l
 ```
 И свою папку server со своей сборкой. Так же обращайте внимание на файл start.sh, как уже говорил, необходимо использовать путь к php внутри docker и следите за номерами портов.
