@@ -18,7 +18,7 @@ RUN --mount=type=secret,id=PHP_VERSION
 RUN --mount=type=secret,id=GIT_HASH
   # GIT_HASH="$(cat /run/secrets/GIT_HASH)"
 
-ENV HOME_DIR = "$(cat /run/secrets/HOME_DIR)""
+ENV HOME_DIR = "$(cat /run/secrets/HOME_DIR)"
 ENV PM_VERSION = "$(cat /run/secrets/PM_VERSION)"
 ENV PMMP_API = "$(cat /run/secrets/PMMP_API)"
 ENV PM_DIR = "${HOME_DIR}pm${PM_VERSION}"
