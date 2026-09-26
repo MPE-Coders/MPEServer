@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-26",
+  "source_version": "0.4.0-alpha",
+  "source_zip_sha256": "44a9cd4a13fac75c65b2c513b8d23fc8e82153dc9123f250e43af02286ac4a90",
+  "source_manifest_sha256": "2cdec70f52fc27a9d78cdd6d41670094528fd80438a9d2b761385cb1a1848b29",
+  "reconstructed_source_files": 177,
+  "packages": [
+    {"name": "MPE-Core", "files": 15},
+    {"name": "MPE-Gateway", "files": 76},
+    {"name": "MPE-PluginAPI", "files": 9},
+    {"name": "MPE-TestClient", "files": 15},
+    {"name": "MPE-Server", "files": 62}
+  ],
+  "package_kind": "source-overlay",
+  "standalone_package_libraries": false,
+  "new_package_repositories_created": false,
+  "checks": {
+    "source_manifest": "passed",
+    "byte_for_byte_reassembly": "passed",
+    "php_unit": {"passed": 52, "failed": 0},
+    "javascript_unit": {"passed": 25, "failed": 0},
+    "python_unit": {"passed": 17, "failed": 0},
+    "source_layout_unit": {"passed": 15, "failed": 0},
+    "rust_compile": "not_run",
+    "native_ipc": "not_run",
+    "real_network_dependencies": "not_run",
+    "headless_network_login": "not_run",
+    "official_client": "not_run"
+  },
+  "release_ready": false,
+  "pumpkin": {
+    "repository": "Pumpkin-MC/Pumpkin",
+    "commit": "003d3c49eaf1ca21207671be55a91587bc1330b5",
+    "implementation_imported": false
+  }
+}
