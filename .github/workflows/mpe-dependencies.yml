@@ -1,0 +1,69 @@
+name: MPE dependency verification
+on:
+  push:
+    branches: [work/mpe-playable-baseline]
+    paths: [.github/workflows/mpe-dependencies.yml]
+permissions:
+  contents: read
+jobs:
+  dependencies:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Resolve pinned source dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p build/.runtime/php out
+          cd build
+          cat > composer.json <<'JSON'
+          {"name":"mpe-coders/mpe-server","type":"project","license":"GPL-3.0-or-later","repositories":[{"type":"vcs","url":"https://github.com/NetherGamesMC/BedrockProtocol"},{"type":"vcs","url":"https://github.com/NetherGamesMC/BedrockData"}],"require":{"php":"^8.2","ext-json":"*","ext-openssl":"*","ext-sockets":"*","ext-zlib":"*","ext-encoding":"~1.0.0","nethergamesmc/bedrock-protocol":"dev-master#aae6ba55aa75b2c188aade6cadca5fb6d2633d33","nethergamesmc/bedrock-data":"dev-master#b5fd03f4bcc790abe3d0dcb31151566ca29d42cb","pocketmine/raklib":"1.2.1","pocketmine/log":"0.4.0","pocketmine/binaryutils":"0.2.7","pocketmine/color":"0.3.1","pocketmine/math":"1.0.0","pocketmine/nbt":"1.2.0","ramsey/uuid":"4.9.2","brick/math":"0.13.1"},"autoload":{"psr-4":{"mpe\\":"gateway/src/"}},"minimum-stability":"dev","prefer-stable":true,"config":{"allow-plugins":false}}
+          JSON
+          cat > package.json <<'JSON'
+          {"name":"mpe-core-tools","version":"0.4.1","private":true,"engines":{"node":">=24"},"dependencies":{"bedrock-protocol":"3.60.1","minecraft-data":"3.117.0"}}
+          JSON
+          python3 - <<'PY'
+          import hashlib,json,pathlib,tarfile,urllib.request
+          def get(url):
+              with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'MPE-build'}),timeout=120) as r: return r.read()
+          meta=json.loads(get('https://api.github.com/repos/pmmp/PHP-Binaries/releases/tags/pm5-php-8.4-latest'))
+          a=next(x for x in meta['assets'] if x['name']=='PHP-8.4-Linux-x86_64-PM5.tar.gz')
+          data=get(a['browser_download_url']); digest=hashlib.sha256(data).hexdigest()
+          if a.get('digest')!='sha256:'+digest: raise RuntimeError('PHP SHA256 mismatch or missing release digest')
+          p=pathlib.Path('.runtime/php.tar.gz');p.write_bytes(data)
+          with tarfile.open(p) as t:t.extractall('.runtime/php',filter='data')
+          pathlib.Path('.runtime/php-artifact.json').write_text(json.dumps({'url':a['browser_download_url'],'sha256':digest,'asset_id':a['id']},indent=2))
+          p.unlink()
+          PY
+          PHP="$PWD/.runtime/php/bin/php7/bin/php"
+          EXT="$(find "$PWD/.runtime/php" -type f -name '*encoding*.so' -printf '%h\n' | head -n1)"
+          export LD_LIBRARY_PATH="$PWD/.runtime/php/bin/php7/lib:${LD_LIBRARY_PATH:-}"
+          "$PHP" -d "extension_dir=$EXT" -v
+          curl -fsSL https://getcomposer.org/installer -o .runtime/composer-setup.php
+          EXPECTED="$(curl -fsSL https://composer.github.io/installer.sig)"
+          ACTUAL="$(sha384sum .runtime/composer-setup.php | cut -d' ' -f1)"
+          test "$EXPECTED" = "$ACTUAL"
+          "$PHP" -d "extension_dir=$EXT" .runtime/composer-setup.php --install-dir=.runtime --filename=composer.phar
+          "$PHP" -d "extension_dir=$EXT" .runtime/composer.phar install --prefer-dist --no-dev --no-interaction --no-plugins --no-scripts
+          "$PHP" -d "extension_dir=$EXT" .runtime/composer.phar check-platform-reqs --no-dev
+          npm install --ignore-scripts --omit=optional
+          cp "$(command -v node)" .runtime/node
+          node -e 'for(const n of ["bedrock-protocol","minecraft-data"]) console.log(n,require(n+"/package.json").version)'
+      - name: Pack verified dependencies
+        if: success()
+        run: |
+          tar -czf out/mpe-dependencies-linux-x64.tar.gz -C build vendor node_modules .runtime composer.json composer.lock package.json package-lock.json
+          sha256sum out/*.tar.gz > out/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mpe-resolved-dependencies
+          path: |
+            out/
+            build/composer.lock
+            build/package-lock.json
+          retention-days: 3
+          compression-level: 0
