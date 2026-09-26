@@ -1,0 +1,28 @@
+name: MPE isolated build environment
+on:
+  push:
+    branches: [work/mpe-playable-baseline]
+    paths: [.github/workflows/mpe-bootstrap.yml]
+permissions:
+  contents: read
+jobs:
+  rust-toolchain:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - name: Install minimal pinned Rust
+        shell: bash
+        run: |
+          set -euo pipefail
+          rustup toolchain install 1.85.1 --profile minimal
+          mkdir -p out
+          TOOLCHAIN="$(rustup run 1.85.1 rustc --print sysroot)"
+          rustup run 1.85.1 rustc -Vv > out/rust-version.txt
+          tar -cJf out/rust-1.85.1-linux-x64.tar.xz -C "$TOOLCHAIN" bin lib
+          sha256sum out/*.tar.xz > out/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mpe-rust-build-environment
+          path: out/
+          retention-days: 3
+          compression-level: 0
